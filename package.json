@@ -1,0 +1,26 @@
+{
+  "name": "cleesy",
+  "version": "0.0.1",
+  "description": "Easy extendable command-line-interface composer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.test.js"
+  },
+  "keywords": [
+    "cli",
+    "extendable"
+  ],
+  "author": "allnulled",
+  "license": "WTFPL",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allnulled/cleesy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/allnulled/cleesy/issues"
+  },
+  "homepage": "https://github.com/allnulled/cleesy#readme"
+}

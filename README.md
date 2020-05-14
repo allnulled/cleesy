@@ -4,9 +4,9 @@ Easily extendable command-line-interface composer.
 
 ## Installation
 
-`$ npm i -s cleesy`
+`$ npm i -D cleesy`
 
-## Why
+## Why?
 
 This tool will help you:
 
@@ -15,7 +15,7 @@ This tool will help you:
     - by creating new folders and files, nothing else.
     - with custom help messages by a `help.txt` file, nothing else.
 
-And it only takes about 100 lines of code and has no dependencies at all.
+And it only takes less than 100 lines of code and has no dependencies at all.
 
 ## Usage
 
@@ -82,3 +82,11 @@ const data = require("clitoris").Clitoris.parse(process.argv.slice(1 + commandDe
 ```
 
 Got it! Complex, nested parametrization (nested arrays, objects, etc.) in any of your commands, with 1 line.
+
+## License
+
+This project is licensed under [WTFPL or What The Fuck Public License](https://es.wikipedia.org/wiki/WTFPL), which means, simply: **do what you want with it**.
+
+## Issues
+
+Address your issues [here](https://github.com/allnulled/cleesy/issues).
