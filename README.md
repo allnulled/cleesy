@@ -30,13 +30,22 @@ For example:
 ```
 /mycli/help.txt
 /mycli/0.command-1/index.js
+/mycli/0.command-1/help.txt
 /mycli/1.command-2/index.js
+/mycli/1.command-2/help.txt
 /mycli/2.command-3/0.subcommand-1/index.js
+/mycli/2.command-3/0.subcommand-1/help.txt
 /mycli/2.command-3/1.subcommand-2/index.js
+/mycli/2.command-3/1.subcommand-2/help.txt
 /mycli/2.command-3/2.subcommand-3/index.js
+/mycli/2.command-3/2.subcommand-3/help.txt
 ```
 
 **The `help.txt` is at the root folder.** This help will be shown every time a command is not found or fails.
+
+**The other `help.txt` files are the specific help of each command.** This help will be shown every time a command is not found or fails.
+
+All the `help.txt` files are optional. Except the general help, the others must have an `index.js` file beside.
 
 **The `index.js` files indicate a command.** The parent folders, until the root folder, indicate the combination of names that the command requires to be executed.
 
