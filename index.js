@@ -110,7 +110,7 @@ class Cleesy {
 		if(typeof commandPath === "undefined") {
 			return;
 		}
-		commandPath += "/index.js";
+		commandPath = path.resolve(commandPath, "index.js");
 		if (!fs.existsSync(commandPath)) {
 			this.help();
 			return console.log("[ERROR] Command <" + command + "> not found.");
