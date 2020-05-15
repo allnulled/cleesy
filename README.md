@@ -118,6 +118,8 @@ This can be useful when you export objects by your command line interface, and y
 
 When a command exports a function, that function is called with the command provided, as a pure string, for you to handle it at your own convenience.
 
+Additionally, the rest of commands provided to `execute` will be also passed to the exported functional command.
+
 ## License
 
 This project is licensed under [WTFPL or What The Fuck Public License](https://es.wikipedia.org/wiki/WTFPL), which means, simply: **do what you want with it**.

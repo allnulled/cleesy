@@ -105,7 +105,7 @@ class Cleesy {
 		return commandFound;
 	}
 
-	execute(command = process.argv.splice(1).join(" ")) {
+	execute(command = process.argv.splice(1).join(" "), ...args) {
 		let commandPath = this.getFolderFromCommand(command);
 		if(typeof commandPath === "undefined") {
 			return;
@@ -122,7 +122,7 @@ class Cleesy {
 			}
 			const output = require(commandPath);
 			if(typeof output === "function") {
-				return output(command);
+				return output(command, ...args);
 			}
 		} catch (error) {
 			return console.log("[ERROR]", error);
