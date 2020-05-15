@@ -98,6 +98,21 @@ Got it! Complex, nested parametrization (nested arrays, objects, etc.) in any of
 
 ## Advanced options
 
+### The `name` option
+
+The name of the command line interface tool you are creating with `cleesy` must have 1 unique name.
+
+The name can be provided by 2 ways: explicitly or implicitly.
+
+  - **Implicitly**, the name will be taken by the name of the directory of the commands. You do not have to do anything in this case.
+  - **Explicitly**, the name can be provided by the property `name` to the `create` method this way:
+
+```js
+const mycli = require("cleesy").create("./mycli", { name: "mycliname" });
+```
+
+### The `cache` option
+
 To repeat commands in the same execution, `cleesy` deletes the cache of `require` by default.
 
 This behaviour can be altered from the `cleesy` instantiation as follows:

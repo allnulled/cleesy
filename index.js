@@ -14,6 +14,7 @@ class Cleesy {
 	constructor(directory, options = {}) {
 		this.directory = path.resolve(directory);
 		Object.assign(this, this.constructor.DEFAULT_OPTIONS, options);
+		this.name = options.name || path.basename(this.directory);
 	}
 
 	list(directory = this.directory, filelist = []) {
@@ -49,7 +50,7 @@ class Cleesy {
 			console.log("[Commands]");
 			const commands = this.list();
 			commands.forEach(function(command) {
-				console.log("  ~$ " + command.name);
+				console.log("  ~$ " this.name + " " + command.name);
 			});
 			this.generalHelp();
 			commands.forEach(function(command) {
