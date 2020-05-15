@@ -49,13 +49,13 @@ class Cleesy {
 		if (typeof command === "undefined") {
 			console.log("[Commands]");
 			const commands = this.list();
-			commands.forEach(function(command) {
-				console.log("  ~$ " this.name + " " + command.name);
+			commands.forEach((command) => {
+				console.log("  ~$ " + this.name + " " + command.name);
 			});
 			this.generalHelp();
-			commands.forEach(function(command) {
+			commands.forEach((command) => {
 				if(command.help) {
-					console.log("\n[Help for: " + command.name + "]");
+					console.log("\n[<" + this.name + " " + command.name + ">]");
 					console.log(command.help);
 				}
 			});
@@ -74,7 +74,7 @@ class Cleesy {
 	generalHelp(orSomething = false) {
 		const helpFile = path.resolve(this.directory, "help.txt");
 		if(fs.existsSync(helpFile)) {
-			console.log("\n[General help]");
+			console.log("\n[Help]");
 			console.log(fs.readFileSync(helpFile).toString());
 		}
 	}
