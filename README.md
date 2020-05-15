@@ -15,7 +15,7 @@ This tool will help you:
     - by creating new folders and files, nothing else.
     - with custom help messages by a `help.txt` file, nothing else.
 
-And it only takes less than 100 lines of code and has no dependencies at all.
+And it only takes around 130 lines of code and has no dependencies at all.
 
 ## Usage
 
@@ -74,10 +74,14 @@ Alternatively, call `execute` without arguments to pick them from `process.argv`
 mycli.execute();
 ```
 
+The `execute` method will ignore all the string that is after a `--`. This allows you to pass parameters from the same command execution.
+
 ### Use parameters
 
 To use parameters inside your commands, you can:
 
+  - export a sync or async function which:
+    - will receive the arguments passed to `execute` method
   - pick them directly from `process.argv`, to fully customize how your tool handles parameters.
   - use other tools, like:
     - [`yargs`](https://github.com/yargs/yargs) to parse standard parameters.
@@ -91,6 +95,26 @@ const data = require("clitoris").Clitoris.parse(process.argv.slice(1 + commandDe
 ```
 
 Got it! Complex, nested parametrization (nested arrays, objects, etc.) in any of your commands, with 1 line.
+
+## Advanced options
+
+To repeat commands in the same execution, `cleesy` deletes the cache of `require` by default.
+
+This behaviour can be altered from the `cleesy` instantiation as follows:
+
+```js
+const mycli = require("cleesy").create("./mycli", { cache: true });
+```
+
+Or overriden by a specific command, so:
+
+```js
+mycli.execute("mycommand --cleesy-cache");
+```
+
+This can be useful when you export objects by your command line interface, and you want to keep the same reference along a wider execution.
+
+
 
 ## License
 

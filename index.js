@@ -7,8 +7,13 @@ class Cleesy {
 		return new this(...args);
 	}
 
-	constructor(directory) {
-		this.directory = path.resolve(directory)
+	static get DEFAULT_OPTIONS() {
+		return { cache: false };
+	}
+
+	constructor(directory, options = {}) {
+		this.directory = path.resolve(directory);
+		Object.assign(this, this.constructor.DEFAULT_OPTIONS, options);
 	}
 
 	list(directory = this.directory, filelist = []) {
@@ -46,11 +51,7 @@ class Cleesy {
 			commands.forEach(function(command) {
 				console.log("  ~$ " + command.name);
 			});
-			const helpFile = path.resolve(this.directory, "help.txt");
-			if(fs.existsSync(helpFile)) {
-				console.log("\n[General help]");
-				console.log(fs.readFileSync(helpFile).toString());
-			}
+			this.generalHelp();
 			commands.forEach(function(command) {
 				if(command.help) {
 					console.log("\n[Help for: " + command.name + "]");
@@ -69,18 +70,60 @@ class Cleesy {
 		}
 	}
 
+	generalHelp(orSomething = false) {
+		const helpFile = path.resolve(this.directory, "help.txt");
+		if(fs.existsSync(helpFile)) {
+			console.log("\n[General help]");
+			console.log(fs.readFileSync(helpFile).toString());
+		}
+	}
+
 	getFolderFromCommand(command) {
-		return command.replace(/ --.*/g, "").join("/");
+		const commandPartsTmp = command.replace(/ *--.*/g, "").split(/ +/g);
+		const commandParts = [];
+		FindCommand:
+		for(let level=0; level < commandPartsTmp.length; level++) {
+			const commandPart = commandPartsTmp[level];
+			const directory = path.resolve(this.directory, ...commandParts);
+			const subdirectories = fs.readdirSync(directory);
+			let wasFound = false;
+			FindInSubdirectories:
+			for(let index=0; index < subdirectories.length; index++) {
+				const subdirectory = subdirectories[index];
+				if(subdirectory.replace(/^[0-9]+\./g, "") === commandPart) {
+					commandParts.push(subdirectory);
+					wasFound = true;
+					break FindInSubdirectories;
+				}
+			}
+			if(!wasFound) {
+				this.generalHelp();
+				return console.log("\n[ERROR] Command <" + command + "> was not found.");
+			}
+		}
+		const commandFound = path.resolve(this.directory, commandParts.join("/"));
+		return commandFound;
 	}
 
 	execute(command = process.argv.splice(1).join(" ")) {
-		const commandPath = this.getFolderFromCommand(command) + "/index.js";
-		if (!fs.existsSync(command)) {
+		let commandPath = this.getFolderFromCommand(command);
+		if(typeof commandPath === "undefined") {
+			return;
+		}
+		commandPath += "/index.js";
+		if (!fs.existsSync(commandPath)) {
 			this.help();
 			return console.log("[ERROR] Command <" + command + "> not found.");
 		}
 		try {
-			return require(commandPath);
+			const cache = this.cache || command.match(/ --cleesy-cache ?|( --cleesy-cache)$/g)
+			if(!cache) {
+				delete require.cache[commandPath];
+			}
+			const output = require(commandPath);
+			if(typeof output === "function") {
+				return 
+			}
 		} catch (error) {
 			return console.log("[ERROR]", error);
 		}
