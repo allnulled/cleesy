@@ -122,7 +122,7 @@ class Cleesy {
 			}
 			const output = require(commandPath);
 			if(typeof output === "function") {
-				return 
+				return output(command);
 			}
 		} catch (error) {
 			return console.log("[ERROR]", error);

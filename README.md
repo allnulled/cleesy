@@ -114,7 +114,9 @@ mycli.execute("mycommand --cleesy-cache");
 
 This can be useful when you export objects by your command line interface, and you want to keep the same reference along a wider execution.
 
+## Functional commands
 
+When a command exports a function, that function is called with the command provided, as a pure string, for you to handle it at your own convenience.
 
 ## License
 
