@@ -1,6 +1,6 @@
 {
   "name": "cleesy",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easy extendable command-line-interface composer.",
   "main": "index.js",
   "scripts": {
