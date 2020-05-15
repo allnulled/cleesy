@@ -97,7 +97,7 @@ class Cleesy {
 				}
 			}
 			if(!wasFound) {
-				this.generalHelp();
+				this.help();
 				return console.log("\n[ERROR] Command <" + command + "> was not found.");
 			}
 		}
